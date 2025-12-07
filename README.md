@@ -1,8 +1,8 @@
 <hr>
 
-# OVERVIEW (WIP)
+# OVERVIEW
 
-A Kotlin-based Android native application that integrates ADB (Android Debug Bridge) compiled for Android platforms, enabling remote app installation on Android TV devices directly from your mobile device. Currently supports Nvidia Shield 2019 as the target platform. This tool eliminates the need for a PC by running ADB commands natively on Android, allowing users to wirelessly deploy APKs and so on to their Shield through an intuitive mobile interface.
+A Kotlin-based Android native application that integrates ADB (Android Debug Bridge) compiled for Android platforms, enabling remote app installation on Android TV devices directly from your mobile device. Currently supports Nvidia Shield 2019 as the target platform. This application eliminates the need for a PC by running ADB commands natively on Android, allowing users to wirelessly deploy APKs and so on to their Shield through an intuitive mobile interface.
 
 <hr>
 
@@ -12,14 +12,14 @@ A Kotlin-based Android native application that integrates ADB (Android Debug Bri
 
 <hr>
 
-### Low Fidelity Mockup
+### Discover Mockups
 
-<picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-1-dark.png"><img src=".assets/shihogen-1.png" width="24.4375%"></picture><img src=".assets/1x1.gif" width="0.75%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-2-dark.png"><img src=".assets/shihogen-2.png" width="24.4375%"></picture><img src=".assets/1x1.gif" width="0.75%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-3-dark.png"><img src=".assets/shihogen-3.png" width="24.4375%"></picture><img src=".assets/1x1.gif" width="0.75%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-4-dark.png"><img src=".assets/shihogen-4.png" width="24.4375%"></picture><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-5-dark.png"><img src=".assets/shihogen-5.png" width="24.4375%"></picture><img src=".assets/1x1.gif" width="0.75%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-6-dark.png"><img src=".assets/shihogen-6.png" width="24.4375%"></picture><img src=".assets/1x1.gif" width="0.75%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-7-dark.png"><img src=".assets/shihogen-7.png" width="24.4375%"></picture><img src=".assets/1x1.gif" width="0.75%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-8-dark.png"><img src=".assets/shihogen-8.png" width="24.4375%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-4-dark.png"><img src=".assets/shihogen-4.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-5-dark.png"><img src=".assets/shihogen-5.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-6-dark.png"><img src=".assets/shihogen-6.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-7-dark.png"><img src=".assets/shihogen-7.png" width="24.0625%"></picture>
 
-<!-- <picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-1-dark.png"><img src=".assets/shihogen-1.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-2-dark.png"><img src=".assets/shihogen-2.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-3-dark.png"><img src=".assets/shihogen-3.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-4-dark.png"><img src=".assets/shihogen-4.png" width="24.0625%"></picture> -->
+<hr>
 
-<!-- <hr> -->
+### Features Mockups
 
-<!-- <picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-5-dark.png"><img src=".assets/shihogen-5.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-6-dark.png"><img src=".assets/shihogen-6.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-7-dark.png"><img src=".assets/shihogen-7.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-8-dark.png"><img src=".assets/shihogen-8.png" width="24.0625%"></picture> -->
+<picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-1-dark.png"><img src=".assets/shihogen-1.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-2-dark.png"><img src=".assets/shihogen-2.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-3-dark.png"><img src=".assets/shihogen-3.png" width="24.0625%"></picture><img src=".assets/1x1.gif" width="1.25%"/><picture><source media="(prefers-color-scheme: dark)" srcset=".assets/shihogen-8-dark.png"><img src=".assets/shihogen-8.png" width="24.0625%"></picture>
 
 <hr>
