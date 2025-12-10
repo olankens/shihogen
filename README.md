@@ -2,13 +2,9 @@
 
 # OVERVIEW
 
-A Kotlin-based Android native application that integrates ADB (Android Debug Bridge) compiled for Android platforms, enabling remote app installation on Android TV devices directly from your mobile device. Currently supports Nvidia Shield 2019 as the target platform. This application eliminates the need for a PC by running ADB commands natively on Android, allowing users to wirelessly deploy APKs and so on to their Shield through an intuitive mobile interface.
-
-<hr>
-
-### Current Visuals
-
 <img src=".assets/01.png" width="24.0625%"/><img src=".assets/1x1.gif" width="1.25%"/><img src=".assets/02.png" width="24.0625%"/><img src=".assets/1x1.gif" width="1.25%"/><img src=".assets/03.png" width="24.0625%"/><img src=".assets/1x1.gif" width="1.25%"/><img src=".assets/04.png" width="24.0625%"/>
+
+A Kotlin-based Android native application that integrates ADB (Android Debug Bridge) compiled for Android platforms, enabling remote app installation on Android TV devices directly from your mobile device. Currently supports Nvidia Shield 2019 as the target platform. This application eliminates the need for a PC by running ADB commands natively on Android, allowing users to wirelessly deploy APKs and so on to their Shield through an intuitive mobile interface.
 
 <hr>
 
