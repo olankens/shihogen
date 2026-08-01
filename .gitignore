@@ -1,0 +1,67 @@
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Local configuration
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Kotlin
+*.kotlin_module
+
+# Native builds
+.externalNativeBuild/
+.cxx/
+
+# Generated files
+captures/
+
+# Signing keys
+*.jks
+*.keystore
+*.p12
+*.pem
+
+# Firebase / Google Services (optional)
+# google-services.json
+# GoogleService-Info.plist
+
+# Secrets
+secrets.properties
+keystore.properties
+
+# Profiling
+*.hprof
+
+# KSP / KAPT generated sources (usually under build/, but safe)
+**/generated/
+
+# Android Studio cache
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# VS Code
+.vscode/
+
+# Fleet
+.fleet/
+
+# Temporary
+.artifacts/
+tmp/
+temp/
