@@ -7,13 +7,13 @@
       "layers" : [
         {
           "glass" : false,
-          "image-name" : "mrbtqs5bhf6z7d (1).jpeg",
-          "name" : "mrbtqs5bhf6z7d (1)",
+          "image-name" : "ChatGPT Image Aug 2, 2026, 05_40_57 PM.png",
+          "name" : "ChatGPT Image Aug 2, 2026, 05_40_57 PM",
           "position" : {
-            "scale" : 0.6,
+            "scale" : 1.5,
             "translation-in-points" : [
-              -11,
-              50
+              5,
+              -106
             ]
           }
         }
@@ -22,7 +22,6 @@
         "kind" : "neutral",
         "opacity" : 0.5
       },
-      "specular" : true,
       "translucency" : {
         "enabled" : true,
         "value" : 0.5
