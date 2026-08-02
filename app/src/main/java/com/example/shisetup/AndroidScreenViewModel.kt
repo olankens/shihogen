@@ -49,28 +49,32 @@ class AndroidScreenViewModel(application: Application) : AndroidViewModel(applic
     suspend fun setAlauncher1() {
         content.value = "ALAUNCHER (1)"
         val deposit = "/sdcard/Download"
-        val baseurl = "https://www.themoviedb.org/t/p/original"
         val updater = Alauncher(machine, context)
-        machine.runInvoke("rm $deposit/*.jpg")
-        listOf(
-            "1gGRY9bnIc0Jaohgc6jNFidjgLK", // American Horror Story
-            "kI9tiDhDpeav28nlwDwTUbUwiSx", // Avatar: The Way of Water
-            "gDtZQmfzvErZpeXOVeCBQE9WkSF", // Doctor Who
-            "4e36PN10oS3x2zJtE30Del0uEHS", // Krampus
-            "hsEAnOKuESc9HJmIGbmKQk5mxmH", // Chainsaw Man
-            "cXlyBXUg6G1qqHntUwkJAjdv8b9", // The Owl House
-            "sBOenwOZGRN5nZZGw4TxwtnfrEf", // Violent Night
-            "bPW6HcI0E1eklEle61LVQuD1Cwc", // Spider-Man: Brand New Day
-            "8sSKdEmlmqF4kJUd28SqthXC4yZ", // Toy Story 5 (2026)
-        ).forEach {
-            delay(1000.milliseconds)
-            val address = "https://www.themoviedb.org/t/p/original/$it.jpg"
-            val fetched = getFromAddress(address, context)
-            val distant = "/sdcard/Download/${fetched?.name}"
-            machine.runExport(fetched!!.absolutePath, distant)
-        }
+        val bundles = listOf(
+            "https://image.tmdb.org/t/p/original/cXlyBXUg6G1qqHntUwkJAjdv8b9.jpg", // https://themoviedb.org/tv/92685-the-owl-house
+            "https://image.tmdb.org/t/p/original/9K6QtLqyocVHgIZe4yqCIl1q2ZR.jpg", // https://themoviedb.org/tv/94954-hazbin-hotel
+            "https://image.tmdb.org/t/p/original/uNTrRKIOyKYISthoeizghtXPEOK.jpg", // https://themoviedb.org/tv/240411-dan-da-dan
+            "https://image.tmdb.org/t/p/original/tGfAIG1ZMBDExoYkhMRQzPy20oS.jpg", // https://themoviedb.org/movie/339846-baywatch
+            "https://image.tmdb.org/t/p/original/nWmb2UyCUj3zjYHvuuxI6tCtLgm.jpg", // https://themoviedb.org/movie/552524-lilo-stitch
+            "https://image.tmdb.org/t/p/original/vpip36rKLNonjYAZkJSPxM5RCn8.jpg", // https://themoviedb.org/movie/287903-krampus
+            "https://image.tmdb.org/t/p/original/mUHMZI1yNUZpdRSxTBroVlalovZ.jpg", // https://themoviedb.org/tv/57243-doctor-who
+            "https://image.tmdb.org/t/p/original/jtOvTVlkF8TlaOq94oNXRc9u2yp.jpg", // https://themoviedb.org/movie/5255-the-polar-express
+            "https://image.tmdb.org/t/p/original/wYMbnrdRCREjNLwFlG5SLWzBjui.jpg", // https://themoviedb.org/movie/438631-dune
+            "https://image.tmdb.org/t/p/original/zfqOvDITgMM4tg1DGRnLRtlu5PN.jpg", // https://themoviedb.org/movie/420818-the-lion-king
+            "https://image.tmdb.org/t/p/original/kI9tiDhDpeav28nlwDwTUbUwiSx.jpg", // https://themoviedb.org/movie/76600-avatar-the-way-of-water
+            "https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg", // https://themoviedb.org/tv/66732-stranger-things
+            "https://image.tmdb.org/t/p/original/eP4RZSHliWu6lPT5WQyHr5ZZKuC.jpg", // https://themoviedb.org/movie/945961-alien-romulus
+            "https://image.tmdb.org/t/p/original/iHSwvRVsRyxpX7FE7GbviaDvgGZ.jpg", // https://themoviedb.org/tv/119051-wednesday
+        )
+        /// machine.runInvoke("rm $deposit/*.jpg")
+        // bundles.forEach {
+        //     delay(1000.milliseconds)
+        //     val fetched = getFromAddress(it, context)
+        //     val distant = "/sdcard/Download/${fetched?.name}"
+        //     machine.runExport(fetched!!.absolutePath, distant)
+        // }
         updater.runUpdate()
-        updater.setWallpaper("$baseurl/8sSKdEmlmqF4kJUd28SqthXC4yZ.jpg")
+        updater.setWallpaper("https://image.tmdb.org/t/p/original/zfqOvDITgMM4tg1DGRnLRtlu5PN.jpg")
     }
 
     suspend fun setAlauncher2() {
@@ -220,11 +224,11 @@ class AndroidScreenViewModel(application: Application) : AndroidViewModel(applic
             // setKodiEnglish()
             // setKodiFrench()
             // setSmartTube()
-            setAlauncher2()
+            // setAlauncher2()
 
             // REBOOT
-            content.value = "REBOOT"
-            machine.runReboot()
+            // content.value = "REBOOT"
+            // machine.runReboot()
         } catch (e: Exception) {
             error.value = e.message.toString()
         }
