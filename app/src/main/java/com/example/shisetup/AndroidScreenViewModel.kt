@@ -50,7 +50,8 @@ class AndroidScreenViewModel(application: Application) : AndroidViewModel(applic
         content.value = "ALAUNCHER (1)"
         val deposit = "/sdcard/Download"
         val updater = Alauncher(machine, context)
-        val bundles = listOf(
+        machine.runInvoke("rm $deposit/*.jpg")
+        listOf(
             "https://image.tmdb.org/t/p/original/cXlyBXUg6G1qqHntUwkJAjdv8b9.jpg", // https://themoviedb.org/tv/92685-the-owl-house
             "https://image.tmdb.org/t/p/original/9K6QtLqyocVHgIZe4yqCIl1q2ZR.jpg", // https://themoviedb.org/tv/94954-hazbin-hotel
             "https://image.tmdb.org/t/p/original/uNTrRKIOyKYISthoeizghtXPEOK.jpg", // https://themoviedb.org/tv/240411-dan-da-dan
@@ -65,14 +66,12 @@ class AndroidScreenViewModel(application: Application) : AndroidViewModel(applic
             "https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg", // https://themoviedb.org/tv/66732-stranger-things
             "https://image.tmdb.org/t/p/original/eP4RZSHliWu6lPT5WQyHr5ZZKuC.jpg", // https://themoviedb.org/movie/945961-alien-romulus
             "https://image.tmdb.org/t/p/original/iHSwvRVsRyxpX7FE7GbviaDvgGZ.jpg", // https://themoviedb.org/tv/119051-wednesday
-        )
-        /// machine.runInvoke("rm $deposit/*.jpg")
-        // bundles.forEach {
-        //     delay(1000.milliseconds)
-        //     val fetched = getFromAddress(it, context)
-        //     val distant = "/sdcard/Download/${fetched?.name}"
-        //     machine.runExport(fetched!!.absolutePath, distant)
-        // }
+        ).forEach {
+            delay(1000.milliseconds)
+            val fetched = getFromAddress(it, context)
+            val distant = "/sdcard/Download/${fetched?.name}"
+            machine.runExport(fetched!!.absolutePath, distant)
+        }
         updater.runUpdate()
         updater.setWallpaper("https://image.tmdb.org/t/p/original/zfqOvDITgMM4tg1DGRnLRtlu5PN.jpg")
     }
