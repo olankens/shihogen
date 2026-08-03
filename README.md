@@ -41,9 +41,8 @@
 
 <table>
   <tbody><tr>
-    <td width="99999"><a href="#"><img src=".assets/appstore.svg" align="center" width="99999"></a></td>
-    <td width="99999"><a href="#"><img src=".assets/googleplay.svg" align="center" width="99999"></a></td>
     <td width="99999"><a href="#"><img src=".assets/github.svg" align="center" width="99999"></a></td>
+    <td width="99999"><a href="#"><img src=".assets/obtainium.svg" align="center" width="99999"></a></td>
   </tr></tbody>
 </table>
 
