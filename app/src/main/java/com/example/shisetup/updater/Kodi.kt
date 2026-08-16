@@ -331,6 +331,7 @@ open class Kodi(machine: Shield, context: Context) : Updater(machine, context) {
         machine.runInvoke("am start -n com.android.tv.settings/com.android.tv.settings.MainSettings")
         machine.runSelect("//*[@text='Apps']")
         machine.runSelect("//*[@text='See all apps']")
+        delay(5000.milliseconds)
         machine.runSelect("//*[@text='$heading']")
         machine.runSelect("//*[@text='Permissions']")
         machine.runRepeat("keycode_dpad_down")
@@ -358,6 +359,23 @@ open class Kodi(machine: Shield, context: Context) : Updater(machine, context) {
 
     suspend fun setKodiSubtitleColor(payload: String = "FFFFFFFF") {
         setRpcSetting("subtitles.colorpick", payload)
+    }
+
+    suspend fun setKodiSubtitleSize(payload: String = "42") {
+        setRpcSetting("subtitles.fontsize", payload)
+    }
+
+    /**
+     * Sets the Kodi subtitle display style.
+     *
+     * @param payload Subtitle style identifier:
+     * - `"0"`: Normal
+     * - `"1"`: Bold
+     * - `"2"`: Italics
+     * - `"3"`: Bold italics
+     */
+    suspend fun setKodiSubtitleStyle(payload: String = "0") {
+        setRpcSetting("subtitles.style", payload)
     }
 
     suspend fun setKodiSubtitleServiceForMovies(payload: String) {
@@ -760,12 +778,12 @@ open class Kodi(machine: Shield, context: Context) : Updater(machine, context) {
         setPovAddonDependencies()
         setPovAddonRepository()
         val fetcher = OkHttpClient.Builder().followRedirects(true).build()
-        val website = "https://codeberg.org/kodifitzwell/repo/src/branch/master/plugin.video.pov"
+        val website = "https://github.com/kodiyashimaru/repo/tree/master/plugin.video.pov"
         val pattern = Regex("plugin.video.pov-([\\d.]+).zip")
         val request = Request.Builder().url(website).addHeader("User-Agent", "mozilla/5.0").build()
         val content = fetcher.newCall(request).execute().body?.string()
         val version = content?.let { pattern.find(it)?.groupValues?.get(1) }
-        val address = "https://codeberg.org/kodifitzwell/repo/raw/branch/master/plugin.video.pov/plugin.video.pov-$version.zip"
+        val address = "https://github.com/kodiyashimaru/repo/raw/refs/heads/master/plugin.video.pov/plugin.video.pov-$version.zip"
         val archive = getFromAddress(address, context)
         machine.runUnpack(archive!!.path, "$deposit/addons")
 
@@ -779,22 +797,26 @@ open class Kodi(machine: Shield, context: Context) : Updater(machine, context) {
     }
 
     suspend fun setPovAddonDependencies() {
+        setKodiDependency("script.module.certifi")
+        setKodiDependency("script.module.chardet")
+        setKodiDependency("script.module.idna")
+        setKodiDependency("script.module.pyqrcode")
         setKodiDependency("script.module.requests")
         setKodiDependency("script.module.urllib3")
-        setCocoscraperAddon()
+        // setPovMagnetoAddon()
     }
 
     suspend fun setPovAddonRepository() {
         val payload = "repository.kodifitzwell"
         if (hasKodiAddon(payload)) return
         val fetcher = OkHttpClient().newBuilder().followRedirects(true).build()
-        val website = "https://codeberg.org/kodifitzwell/repo/src/branch/master/packages"
+        val website = "https://github.com/kodiyashimaru/repo"
         val pattern = Regex("repository.kodifitzwell-([\\d.]+).zip")
         val request = Request.Builder().url(website).addHeader("User-Agent", "mozilla/5.0").build()
         val content = fetcher.newCall(request).execute().body?.string()
         val matchResult = content?.let { pattern.findAll(it).lastOrNull() }
         val version = matchResult?.groups?.get(1)?.value
-        val address = "https://codeberg.org/kodifitzwell/repo/raw/branch/master/packages/repository.kodifitzwell-$version.zip"
+        val address = "https://github.com/kodiyashimaru/repo/raw/refs/heads/master/repository.kodifitzwell-$version.zip"
         val archive = getFromAddress(address, context)
         machine.runUnpack(archive!!.path, "$deposit/addons")
 
@@ -809,21 +831,60 @@ open class Kodi(machine: Shield, context: Context) : Updater(machine, context) {
     suspend fun setPovAlldebridToken(payload: String) {
         val distant = "$deposit/userdata/addon_data/plugin.video.pov/settings.xml"
         setXmlSetting(distant, "//*[@id='ad.enabled']", "true")
+        setXmlSetting(distant, "//*[@id='ad.hoster.enabled']", "true")
         setXmlSetting(distant, "//*[@id='ad.token']", payload)
-        setXmlSetting(distant, "//*[@id='provider.tidebrid']", "true")
-        setXmlSetting(distant, "//*[@id='tidebrid.debrid']", "1")
-        setXmlSetting(distant, "//*[@id='provider.mfdebrid']", "true")
-        setXmlSetting(distant, "//*[@id='mfdebrid.packs']", "true")
+        // setXmlSetting(distant, "//*[@id='provider.tidebrid']", "true")
+        // setXmlSetting(distant, "//*[@id='tidebrid.debrid']", "1")
+        // setXmlSetting(distant, "//*[@id='provider.mfdebrid']", "true")
+        // setXmlSetting(distant, "//*[@id='mfdebrid.packs']", "true")
     }
 
     suspend fun setPovFavourites() {
-        val picture = "$deposit/addons/plugin.video.pov/resources/media/pov.png"
         setKodiFavourite(
-            "[B]POV[/B]\n ",
+            "[B]SEARCH[/B]\n ",
             "10025",
-            "plugin://plugin.video.pov",
+            "plugin://plugin.video.pov/?iconImage=search.png&mode=navigator.search&name=32450",
             ""
         )
+        setKodiFavourite(
+            "[B]MOVIES[/B]\n ",
+            "10025",
+            "plugin://plugin.video.pov/?action=MovieList&iconImage=movies.png&mode=navigator.main&name=32028",
+            ""
+        )
+        setKodiFavourite(
+            "[B]TV SHOWS[/B]\n ",
+            "10025",
+            "plugin://plugin.video.pov/?action=TVShowList&iconImage=tv.png&mode=navigator.main&name=32029",
+            ""
+        )
+        setKodiFavourite(
+            "[B]ANIME[/B]\n ",
+            "10025",
+            "plugin://plugin.video.pov/?action=AnimeList&iconImage&mode=navigator.main&name=Anime",
+            ""
+        )
+    }
+
+    suspend fun setPovMagnetoAddon() = withContext(IO) {
+        val payload = "script.module.magneto"
+        if (hasKodiAddon(payload)) return@withContext
+        val fetcher = OkHttpClient.Builder().followRedirects(true).build()
+        val website = "https://github.com/kodiyashimaru/repo/tree/master/script.module.magneto"
+        val pattern = Regex("script.module.magneto-([\\d.]+).zip")
+        val request = Request.Builder().url(website).addHeader("User-Agent", "mozilla/5.0").build()
+        val content = fetcher.newCall(request).execute().body?.string()
+        val version = content?.let { pattern.find(it)?.groupValues?.get(1) }
+        val address = "https://github.com/kodiyashimaru/repo/raw/refs/heads/master/script.module.magneto/script.module.magneto-$version.zip"
+        val archive = getFromAddress(address, context)
+        machine.runUnpack(archive!!.path, "$deposit/addons")
+
+        runRpc(mapOf("jsonrpc" to "2.0", "method" to "Application.Quit", "params" to emptyMap<String, Any>(), "id" to 1))
+        delay(5000.milliseconds)
+        machine.runFinish(pkgname)
+        setKodiWebserver(enabled = true, secured = false)
+        setKodiAddonEnabled(payload, enabled = true)
+        machine.runRepeat("keycode_home")
     }
 
     ///
@@ -905,6 +966,152 @@ open class Kodi(machine: Shield, context: Context) : Updater(machine, context) {
             "plugin://plugin.video.umbrella",
             ""
         )
+    }
+
+    ///
+
+    suspend fun setAlkoflixAddon() = withContext(IO) {
+        val payload = "plugin.video.alkoflix"
+        if (hasKodiAddon(payload)) return@withContext
+        setAlkoflixAddonDependencies()
+        setAlkoflixAddonRepository()
+        // TODO: Complete
+        val fetcher = OkHttpClient.Builder().followRedirects(true).build()
+        val baseurl = "https://github.com/alKODIque/repository.alkoflix"
+        val website = "$baseurl/tree/master/plugin.video.alkoflix"
+        val pattern = Regex("plugin.video.alkoflix-([\\d.]+).zip")
+        val request = Request.Builder().url(website).addHeader("User-Agent", "mozilla/5.0").build()
+        val content = fetcher.newCall(request).execute().body?.string()
+        // val version = content?.let { pattern.find(it)?.groupValues?.get(1) }
+        val version = content?.let { pattern.findAll(it).lastOrNull()?.groupValues?.get(1) }
+        val address = "$baseurl/raw/refs/heads/master/plugin.video.alkoflix/plugin.video.alkoflix-$version.zip"
+        val archive = getFromAddress(address, context)
+        machine.runUnpack(archive!!.path, "$deposit/addons")
+
+        runRpc(mapOf("jsonrpc" to "2.0", "method" to "Application.Quit", "params" to emptyMap<String, Any>(), "id" to 1))
+        delay(5000.milliseconds)
+        machine.runFinish(pkgname)
+        setKodiWebserver(enabled = true, secured = false)
+        setKodiAddonEnabled(payload, enabled = true)
+        setAlkoflixFavourites()
+        machine.runRepeat("keycode_home")
+    }
+
+    suspend fun setAlkoflixAddonDependencies() {
+        setKodiDependency("script.module.certifi")
+        setKodiDependency("script.module.chardet")
+        setKodiDependency("script.module.idna")
+        // setKodiDependency("script.module.pyqrcode") // TODO: DELETE ME
+        setKodiDependency("script.module.requests")
+        setKodiDependency("script.module.urllib3")
+    }
+
+    suspend fun setAlkoflixAddonRepository() = withContext(IO) {
+        val payload = "repository.alkoflix"
+        if (hasKodiAddon(payload)) return@withContext
+        val address = "https://api.github.com/repos/alKODIque/repository.alkoflix/releases/latest"
+        val archive = getFromGithub(address, Regex(".*.zip"), context)
+        archive?.let { machine.runUnpack(it.path, "$deposit/addons") }
+
+        runRpc(mapOf("jsonrpc" to "2.0", "method" to "Application.Quit", "params" to emptyMap<String, Any>(), "id" to 1))
+        delay(5000.milliseconds)
+        machine.runFinish(pkgname)
+        setKodiWebserver(enabled = true, secured = false)
+        setKodiAddonEnabled(payload, enabled = true)
+        machine.runRepeat("keycode_home")
+    }
+
+    suspend fun setAlkoflixAlkopasteCatalog() {
+        val distant = "$deposit/userdata/addon_data/plugin.video.alkoflix/settings.xml"
+        setXmlSetting(distant, "//*[@id='catalogue.alkopaste.enabled']", "true")
+        // TODO: Download the catalog through the webserver
+        setKodiWebserver(enabled = true, secured = false)
+        runRpc(mapOf("jsonrpc" to "2.0", "method" to "Addons.ExecuteAddon", "params" to mapOf("addonid" to "plugin.video.alkoflix", "params" to "?mode=update_alkopaste_catalogue_database"), "id" to 1))
+        delay(5000.milliseconds)
+        machine.runFinish(pkgname)
+        // runRpcSelect()
+        // delay(5000.milliseconds)
+    }
+
+    suspend fun setAlkoflixAlldebridToken(payload: String) {
+        val distant = "$deposit/userdata/addon_data/plugin.video.alkoflix/settings.xml"
+        setXmlSetting(distant, "//*[@id='ad.enabled']", "true")
+        setXmlSetting(distant, "//*[@id='ad.token']", payload)
+    }
+
+    suspend fun setAlkoflixFavourites() {
+        setKodiFavourite(
+            "[B]RECHERCHE[/B]\n ",
+            "10025",
+            "plugin://plugin.video.alkoflix/?iconImage=search.png&mode=navigator.search&name=Recherche",
+            ""
+        )
+        setKodiFavourite(
+            "[B]FILMS[/B]\n ",
+            "10025",
+            "plugin://plugin.video.alkoflix/?catalogue_media_type=film&catalogue_section=films&iconImage=movies.png&mode=catalogue.alkopaste_section&name=Films",
+            ""
+        )
+        setKodiFavourite(
+            "[B]SÉRIES[/B]\n ",
+            "10025",
+            "plugin://plugin.video.alkoflix/?catalogue_media_type=serie&catalogue_section=series&iconImage=tv.png&mode=catalogue.alkopaste_section&name=S%c3%a9ries",
+            ""
+        )
+        setKodiFavourite(
+            "[B]DOCUMENTAIRES[/B]\n ",
+            "10025",
+            "plugin://plugin.video.alkoflix/?catalogue_folder=documentaries&iconImage=genre_documentary.png&mode=catalogue.alkopaste_folder&name=Documentaires",
+            ""
+        )
+        setKodiFavourite(
+            "[B]DESSINS ANIMÉS[/B]\n ",
+            "10025",
+            "plugin://plugin.video.alkoflix/?catalogue_folder=animation&iconImage=genre_animation.png&mode=catalogue.alkopaste_folder&name=Dessins%20anim%c3%a9s",
+            ""
+        )
+        setKodiFavourite(
+            "[B]ANIMÉS JAPONAIS[/B]\n ",
+            "10025",
+            "plugin://plugin.video.alkoflix/?catalogue_folder=anime&iconImage=anime.png&mode=catalogue.alkopaste_folder&name=Anim%c3%a9s%20japonais",
+            ""
+        )
+        setKodiFavourite(
+            "[B]REPLAY[/B]\n ",
+            "10025",
+            "plugin://plugin.video.alkoflix/?catalogue_media_type=serie&catalogue_section=replay&iconImage=tv.png&mode=catalogue.alkopaste_section&name=Replay",
+            ""
+        )
+        setKodiFavourite(
+            "[B]CONCERTS[/B]\n ",
+            "10025",
+            "plugin://plugin.video.alkoflix/?catalogue_media_type=film&catalogue_section=concerts&iconImage=genre_music.png&mode=catalogue.alkopaste_section&name=Concerts",
+            ""
+        )
+        // setKodiFavourite(
+        //     "[B]SPECTACLES[/B]\n ",
+        //     "10025",
+        //     "plugin://plugin.video.alkoflix/?catalogue_media_type=film&catalogue_section=spectacles&iconImage=in_theatres.png&mode=catalogue.alkopaste_section&name=Spectacles",
+        //     ""
+        // )
+        // setKodiFavourite(
+        //     "[B]CONTENU QC[/B]\n ",
+        //     "10025",
+        //     "plugin://plugin.video.alkoflix/?catalogue_folder=qc&iconImage=quebec.png&mode=catalogue.alkopaste_folder&name=Contenu%20QC",
+        //     ""
+        // )
+        // setKodiFavourite(
+        //     "[B]SAGAS[/B]\n ",
+        //     "10025",
+        //     "plugin://plugin.video.alkoflix/?action=SagasMovieList&iconImage=sets.png&mode=navigator.main&name=Sagas",
+        //     ""
+        // )
+        // setKodiFavourite(
+        //     "[B]PERSONNES[/B]\n ",
+        //     "10025",
+        //     "plugin://plugin.video.alkoflix/?action=PeopleList&iconImage=user.png&mode=navigator.main&name=Personnes",
+        //     ""
+        // )
     }
 
     ///

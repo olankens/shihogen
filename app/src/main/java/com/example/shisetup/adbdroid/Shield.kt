@@ -4,6 +4,7 @@ import android.content.Context
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import kotlin.time.Duration.Companion.milliseconds
 
 class Shield(
     address: String,
@@ -83,14 +84,14 @@ class Shield(
         val command = if (enabled) "cmd package install-existing" else "pm uninstall -k --user 0"
         for (pkgname in factors) {
             runInvoke("$command $pkgname")
-            delay(200)
+            delay(200.milliseconds)
         }
     }
 
     suspend fun setGooglePlay() = withContext(IO) {
-        // INFO: Uninstall google play and reinstall it to remove netflix button trigger
+        // INFO: Uninstall Google Play and reinstall it to remove netflix button trigger
         runInvoke("pm uninstall -k --user 0 com.android.vending")
-        delay(200)
+        delay(200.milliseconds)
         runInvoke("cmd package install-existing com.android.vending")
     }
 
@@ -100,14 +101,14 @@ class Shield(
             runInvoke("am start -n com.android.tv.settings/.system.LanguageActivity")
             runRepeat("keycode_dpad_up", repeats = 99)
             runRepeat("keycode_enter")
-            delay(5000)
+            delay(5000.milliseconds)
         }
         current = getLocale()
         if (current != dialect.compact) {
             runInvoke("am start -n com.android.tv.settings/.system.LanguageActivity")
             runSelect("//*[@text='${dialect.content}']")
             runRepeat("keycode_enter")
-            delay(5000)
+            delay(5000.milliseconds)
         }
         runRepeat("keycode_home")
     }
@@ -118,7 +119,7 @@ class Shield(
         runSelect("//*[@text='Apps']")
         runSelect("//*[@text='Special app access']")
         runSelect("//*[@text='Picture-in-picture']")
-        delay(5000)
+        delay(5000.milliseconds)
         val pattern = "//*[@text='$payload']/parent::*/following-sibling::*/node"
         val element = runScrape(pattern)
         if (element != null) {
