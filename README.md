@@ -5,8 +5,8 @@
 
 <table>
   <tbody><tr><td align="center" width="99999"><div>
-    <a href="#">WEBSITE</a> ·
-    <a href="#">FUNDING</a>
+    <a href="https://olankens.com">WEBSITE</a> ·
+    <a href="https://ko-fi.com/olankens">FUNDING</a>
   </div></td></tr></tbody>
   <tbody><tr><td align="center" width="99999">&nbsp;<div>
     Turn your Android phone into a wireless ADB client for Android TV. Built in Kotlin with native ADB for Android, it lets you sideload APKs to Nvidia Shield 2019 without a PC via a clean mobile interface.
@@ -41,8 +41,9 @@
 
 <table>
   <tbody><tr>
-    <td width="99999"><a href="#"><img src=".assets/logo-store-github.svg" align="center" width="99999"></a></td>
-    <td width="99999"><a href="#"><img src=".assets/logo-store-obtainium.svg" align="center" width="99999"></a></td>
+    <td width="99999"><a href="#"><img src=".assets/store-googleplay.svg" align="center" width="99999"></a></td>
+    <td width="99999"><a href="#"><img src=".assets/store-github.svg" align="center" width="99999"></a></td>
+    <td width="99999"><a href="#"><img src=".assets/store-obtainium.svg" align="center" width="99999"></a></td>
   </tr></tbody>
 </table>
 
